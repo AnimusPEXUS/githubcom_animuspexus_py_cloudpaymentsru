@@ -46,8 +46,8 @@ class Client:
 
         return None
 
-    def Test(self):
-        self.SendAsJSON(dict(), "test")
+    def Test(self) -> (dict, Exception):
+        return self.SendAsJSON(dict(), "test")
 
     def PerformSingleIterationPayment(self, payment: dict):
         self.SendAsJSON(payment, "payments/cards/charge")
