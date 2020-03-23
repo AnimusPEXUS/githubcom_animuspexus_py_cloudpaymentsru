@@ -23,7 +23,7 @@ class Client:
         try:
             req = urllib.request.Request(
                 self.base_uri + to,
-                data=bytes(json_string),
+                data=bytes(json_string, encoding='utf-8'),
                 headers={'Content-Type': 'application/json'}
             )
         except Exception as err:
