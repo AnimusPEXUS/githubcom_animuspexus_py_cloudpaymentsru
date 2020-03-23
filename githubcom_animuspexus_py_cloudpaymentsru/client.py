@@ -40,7 +40,7 @@ class Client:
         req.add_header("Authorization", "Basic {}".format(self.authorization_header))
 
         for i in req.headers:
-            print("header", i)
+            print("header", i, req.headers[i])
 
         request_res = None
         try:
