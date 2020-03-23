@@ -45,7 +45,7 @@ class Client:
         for i in req.headers:
             print("req header {}:{}".format(i, req.headers[i]))
 
-        request_res = None
+        request_res = 123
         try:
             request_res = urllib.request.urlopen(req)
         except Exception as err:
