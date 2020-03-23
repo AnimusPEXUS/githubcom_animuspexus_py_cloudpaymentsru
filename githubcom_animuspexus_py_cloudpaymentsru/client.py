@@ -39,6 +39,9 @@ class Client:
 
         req.add_header("Authorization", "Basic {}".format(self.authorization_header))
 
+        for i in req.headers:
+            print("header", i)
+
         request_res = None
         try:
             request_res = urllib.request.urlopen(req)
