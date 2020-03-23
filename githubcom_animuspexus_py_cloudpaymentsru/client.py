@@ -50,7 +50,7 @@ class Client:
             request_res = urllib.request.urlopen(req)
         except Exception as err:
             exceptions.append(err)
-            return None, exceptions
+            # return None, exceptions
 
         for i in request_res.headers:
             print("res header {}:{}".format(i, request_res.headers[i]))
