@@ -43,7 +43,7 @@ class Client:
         req.add_header("Authorization", "Basic {}".format(self.authorization_header))
 
         for i in req.headers:
-            print("header", i, req.headers[i])
+            print("req header {}:{}".format(i, req.headers[i]))
 
         request_res = None
         try:
@@ -51,6 +51,9 @@ class Client:
         except Exception as err:
             exceptions.append(err)
             return None, exceptions
+
+        for i in request_res.headers:
+            print("res header {}:{}".format(i, request_res.headers[i]))
 
         if request_res != 200:
             exceptions.append(Exception("Response is not 200"))
