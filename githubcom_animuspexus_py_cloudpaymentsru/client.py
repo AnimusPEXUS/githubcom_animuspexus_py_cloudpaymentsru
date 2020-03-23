@@ -44,7 +44,7 @@ class Client:
         if not type(resp_obj) == dict:
             return None, Exception("ersponse is not JSON")
 
-        return None
+        return resp_obj, None
 
     def Test(self) -> (dict, Exception):
         return self.SendAsJSON(dict(), "test")
