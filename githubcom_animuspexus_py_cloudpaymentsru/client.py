@@ -19,10 +19,19 @@ class Client:
         except Exception as err:
             return None, err
 
-        request_res = None
-
+        req = None
         try:
-            request_res = urllib.request.urlopen(self.base_uri + to, data=json_string)
+            req = urllib.request.Request(
+                self.base_uri + to,
+                data=bytes(json_string),
+                headers={'Content-Type': 'application/json'}
+            )
+        except Exception as err:
+            return None, err
+
+        request_res = None
+        try:
+            request_res = urllib.request.urlopen(req)
         except Exception as err:
             return None, err
 
@@ -42,7 +51,7 @@ class Client:
             return None, err
 
         if not type(resp_obj) == dict:
-            return None, Exception("ersponse is not JSON")
+            return None, Exception("response is not JSON")
 
         return resp_obj, None
 
