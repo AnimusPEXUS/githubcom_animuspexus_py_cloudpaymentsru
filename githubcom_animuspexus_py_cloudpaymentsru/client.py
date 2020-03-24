@@ -38,7 +38,6 @@ class Client:
             resp_obj = request_res.json()
         except Exception as err:
             exceptions.append(err)
-            return request_res.status_code, None, exceptions
 
         if not type(resp_obj) == dict:
             exceptions.append(Exception("response JSON is invalid"))
@@ -47,6 +46,3 @@ class Client:
 
     def Test(self) -> (int, dict, [Exception]):
         return self.SendAsJSON(dict(), "test")
-
-    def PerformSingleIterationPayment(self, payment: dict) -> (int, dict, [Exception]):
-        return self.SendAsJSON(payment, "payments/cards/charge")
