@@ -1,7 +1,5 @@
-import json
+import requests
 import base64
-
-import urllib.request
 
 
 class Client:
@@ -11,6 +9,9 @@ class Client:
             basic_auth_password: str = ""
     ):
         self.base_uri = 'https://api.cloudpayments.ru/'
+
+        self.basic_auth_user = basic_auth_user
+        self.basic_auth_password = basic_auth_password
 
         self.authorization_header = base64.b64encode(
             "{}:{}".format(basic_auth_user, basic_auth_password).encode(encoding="utf-8")
@@ -24,57 +25,26 @@ class Client:
         exceptions = list()
 
         try:
-            json_string = json.dumps(obj)
-        except Exception as err:
-            exceptions.append(err)
-            return None, exceptions
-
-        req = None
-        try:
-            req = urllib.request.Request(
-                self.base_uri + to,
-                data=json_string.encode(encoding='utf-8'),
-                headers={'Content-Type': 'application/json'}
+            request_res = requests.request(
+                method="POST",
+                url=self.base_uri + to,
+                auth=(self.basic_auth_user, self.basic_auth_password,),
+                json=obj,
             )
         except Exception as err:
             exceptions.append(err)
-            return None, exceptions
 
-        req.add_header("Authorization", "Basic {}".format(self.authorization_header))
+        if request_res.status_code != 200:
+            exceptions.append(Exception("response is not 200"))
 
-        for i in req.headers:
-            print("req header {}:{}".format(i, req.headers[i]))
-
-        request_res = 123
         try:
-            request_res = urllib.request.urlopen(req)
-        except Exception as err:
-            exceptions.append(err)
-            # return None, exceptions
-
-        for i in request_res.headers:
-            print("res header {}:{}".format(i, request_res.headers[i]))
-
-        if request_res != 200:
-            exceptions.append(Exception("Response is not 200"))
-
-        resp_data = ""
-        try:
-            resp_data = request_res.read()
-        except Exception as err:
-            exceptions.append(err)
-            return None, exceptions
-
-        resp_obj = None
-        try:
-            resp_obj = json.loads(resp_data)
+            resp_obj = request_res.json()
         except Exception as err:
             exceptions.append(err)
             return None, exceptions
 
         if not type(resp_obj) == dict:
-            exceptions.append(Exception("response is not JSON"))
-            return None, exceptions
+            exceptions.append(Exception("response JSON is invalid"))
 
         return resp_obj, exceptions
 
