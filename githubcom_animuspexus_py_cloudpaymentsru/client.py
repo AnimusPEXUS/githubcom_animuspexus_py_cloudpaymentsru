@@ -17,7 +17,7 @@ class Client:
             "{}:{}".format(basic_auth_user, basic_auth_password).encode(encoding="utf-8")
         ).decode(encoding="utf-8")
 
-    def SendAsJSON(self, obj: dict, to: str, method: str = 'GET') -> (dict, [Exception]):
+    def SendAsJSON(self, obj: dict, to: str, method: str = 'GET') -> (int, dict, [Exception]):
 
         exceptions = list()
 
@@ -38,15 +38,15 @@ class Client:
             resp_obj = request_res.json()
         except Exception as err:
             exceptions.append(err)
-            return None, exceptions
+            return request_res.status_code, None, exceptions
 
         if not type(resp_obj) == dict:
             exceptions.append(Exception("response JSON is invalid"))
 
-        return resp_obj, exceptions
+        return request_res.status_code, resp_obj, exceptions
 
-    def Test(self) -> (dict, [Exception]):
+    def Test(self) -> (int, dict, [Exception]):
         return self.SendAsJSON(dict(), "test")
 
-    def PerformSingleIterationPayment(self, payment: dict) -> (dict, [Exception]):
+    def PerformSingleIterationPayment(self, payment: dict) -> (int, dict, [Exception]):
         return self.SendAsJSON(payment, "payments/cards/charge")
