@@ -17,7 +17,7 @@ class Client:
             "{}:{}".format(basic_auth_user, basic_auth_password).encode(encoding="utf-8")
         ).decode(encoding="utf-8")
 
-    def SendAsJSON(self, obj: dict, to: str, method: str = 'GET') -> (int, dict, [Exception]):
+    def SendAsJSON(self, obj: dict, to: str, method: str = 'POST') -> (int, dict, [Exception]):
 
         exceptions = list()
 
