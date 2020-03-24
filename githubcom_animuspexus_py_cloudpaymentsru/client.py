@@ -17,13 +17,13 @@ class Client:
             "{}:{}".format(basic_auth_user, basic_auth_password).encode(encoding="utf-8")
         ).decode(encoding="utf-8")
 
-    def SendAsJSON(self, obj: dict, to: str) -> (dict, [Exception]):
+    def SendAsJSON(self, obj: dict, to: str, method: str = 'GET') -> (dict, [Exception]):
 
         exceptions = list()
 
         try:
             request_res = requests.request(
-                method="POST",
+                method=method,
                 url=self.base_uri + to,
                 auth=(self.basic_auth_user, self.basic_auth_password,),
                 json=obj,
