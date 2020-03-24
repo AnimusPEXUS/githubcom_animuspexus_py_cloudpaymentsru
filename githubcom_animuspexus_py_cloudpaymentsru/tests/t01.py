@@ -1,7 +1,12 @@
 import githubcom_animuspexus_py_cloudpaymentsru.client
 
+
 def main():
-    c = githubcom_animuspexus_py_cloudpaymentsru.client.Client(public_id="test", api_secret="test")
+    c = githubcom_animuspexus_py_cloudpaymentsru.client.Client(
+        basic_auth_user="test",
+        basic_auth_password="test"
+    )
     print(c.Test())
+
 
 main()
