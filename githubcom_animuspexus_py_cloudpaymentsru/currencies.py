@@ -1,3 +1,5 @@
+import functools
+
 CURRENCIES = {
     'RUB': {'ru': 'Российский рубль'},
     'EUR': {'ru': 'Евро'},
@@ -23,6 +25,7 @@ CURRENCIES = {
 }
 
 
+@functools.lru_cache
 def get_dict_by_lang(lang: str = 'ru') -> dict:
     ret = dict()
 
