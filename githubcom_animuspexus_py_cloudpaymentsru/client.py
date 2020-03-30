@@ -47,5 +47,5 @@ class Client:
     def Test(self) -> (int, dict, [Exception]):
         return self.SendAsJSON(dict(), "test")
 
-    def GetTransactionInfo(self, id: int) -> (dict, Exception):
+    def GetTransactionInfo(self, id: int) -> (dict, [Exception]):
         return self.SendAsJSON({'TransactionId': id})
