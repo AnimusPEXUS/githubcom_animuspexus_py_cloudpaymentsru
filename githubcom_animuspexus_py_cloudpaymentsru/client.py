@@ -19,6 +19,8 @@ class Client:
 
     def SendAsJSON(self, obj: dict, to: str, method: str = 'POST') -> (int, dict, [Exception]):
 
+        to = to.lstrip('/')
+
         exceptions = list()
 
         try:
