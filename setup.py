@@ -2,7 +2,7 @@ import setuptools
 
 setuptools.setup(
     name="githubcom_animuspexus_py_cloudpaymentsru",
-    version="0.1.1",
+    version="0.1.2",
     author="AnimusPEXUS",
     author_email="AnimusPEXUS@ProtonMail.COM",
     description="Python binding for cloudpayments.ru",
